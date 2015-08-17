@@ -77,7 +77,7 @@ function RenderMesh(filename)
                 };
     var loader = new THREE.OBJLoader( manager );
 
-            loader.load( 'meshes/dragon.obj', function ( object ) {
+            loader.load( filename, function ( object ) {
 
                     object.traverse( function ( child ) {
 
