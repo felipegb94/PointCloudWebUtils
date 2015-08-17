@@ -45,37 +45,41 @@ function MeshToPC(MeshGeometry, MeshObject)
     var max = boundingBox.max;
     var center = boundingBox.center();
     var offCenter = new THREE.Vector3(center.x,center.y,center.z+0.00000001);
+    var offCenter2 = new THREE.Vector3(center.x+0.00000001,center.y,center.z);
 
     var currPoint = new THREE.Vector3(0,0,0);
     var direction1 = new THREE.Vector3(0,0,0);
     var direction2 = new THREE.Vector3(0,0,0);
     var direction2OffCenter = new THREE.Vector3(0,0,0);
+    var direction2OffCenter2 = new THREE.Vector3(0,0,0);
 
     var intersect1;
     var intersect2;
     var intersect3;
     var intersect4;
     var intersect4OffCenter;
+    var intersect4OffCenter2;
 
     var raycaster1 = new THREE.Raycaster();
     var raycaster2 = new THREE.Raycaster();
     var raycaster3 = new THREE.Raycaster();
     var raycaster4 = new THREE.Raycaster();
     var raycaster4OffCenter = new THREE.Raycaster();
+    var raycaster4OffCenter2 = new THREE.Raycaster();
 
 
     var noLoops = true;
     var multipleLoops = false;
-    var dr = 0.05;
+    var dr = 0.07;
     var sum2Count = 0;
     var wrongPoint = 0;
     var pointCounter = 0;
 
-    for(var i = min.x-0.0005; i < max.x-0.0005; i = i + dr)
+    for(var i = min.x - 0.00000001; i < max.x + 0.00000001 ; i = i + dr)
     {
-      for(var j = min.y-0.0005; j < max.y-0.0005; j = j + dr)
+      for(var j = min.y - 0.00000001; j < max.y + 0.00000001; j = j + dr)
       {
-        for(var k = min.z-0.0005; k < max.z-0.0005; k = k + dr)
+        for(var k = min.z - 0.00000001; k < max.z + 0.00000001; k = k + dr)
         {
           currPoint = new THREE.Vector3(i,j,k);
           /* From center to point */
@@ -84,11 +88,13 @@ function MeshToPC(MeshGeometry, MeshObject)
           direction2.set(center.x - i, center.y - j, center.z - k);
           /* From point to offCenter */    
           direction2OffCenter.set(offCenter.x - i, offCenter.y - j, offCenter.z - k);
+          direction2OffCenter2.set(offCenter2.x - i, offCenter2.y - j, offCenter2.z - k);
 
           // IMPORTANT!! We have to normalize the direction in order for raycaster to work! 
           direction1.normalize();
           direction2.normalize();
           direction2OffCenter.normalize();
+          direction2OffCenter2.normalize();
 
           // Cast rays from center to point
           raycaster1.set(center, direction1);
@@ -100,38 +106,23 @@ function MeshToPC(MeshGeometry, MeshObject)
           raycaster4.set(currPoint, direction2);
           // Ray from point to off center
           raycaster4OffCenter.set(currPoint, direction2OffCenter);
+          raycaster4OffCenter2.set(currPoint, direction2OffCenter);
 
-          intersect1 = raycaster1.intersectObject(MeshObject);
-          intersect2 = raycaster2.intersectObject(MeshObject);
-          intersect3 = raycaster3.intersectObject(MeshObject);
-          intersect4 = raycaster4.intersectObject(MeshObject);
-          intersect4OffCenter = raycaster4OffCenter.intersectObject(MeshObject);
+          // Intersect from center to point
+          intersect1 = raycaster1.intersectObject(MeshObject, true);
+          // Intersect from center to opposite to point
+          intersect2 = raycaster2.intersectObject(MeshObject, true);
+          // Intersect from point to away from center
+          intersect3 = raycaster3.intersectObject(MeshObject, true);
+          // Intersect from point to center
+          intersect4 = raycaster4.intersectObject(MeshObject, true);
+          // Intersect from point to off center
+          intersect4OffCenter = raycaster4OffCenter.intersectObject(MeshObject, true);
+          intersect4OffCenter2 = raycaster4OffCenter.intersectObject(MeshObject, true);
 
-          /**
-           * Recall: direction1 is from center to point and direction2 is from point to center
-           * If point is inside mesh and center is inside
-           *     intersect1.length === intersect2.length
-           * If point is outside mesh and center is inside
-           *     intersect1.length+1 === intersect2.length  
-           * If point is outside mesh and center is outside mesh
-           *     intersect1.length === intersect2.length
-           * If point is inside mesh and center is outside mesh
-           *     intersect1.length+1 === intersect2.length
-           *     
-           * If center is inside mesh and no closed loops
-           *     intersect1.length == 0
-           * If point is inside mesh and no closed loops
-           *     intersect1.length == 0
-           *     intersect2.length == 0
-           * If point is outside mesh and no closed loops
-           *     intersect1.length == 0
-           *     intersect2.length == 1
-           */
-          var sum = intersect1.length+intersect2.length;//+intersect3.length;
-          if((intersect1.length==0 && intersect4.length==0 && intersect4OffCenter.length==0) && (noLoops))
+          if((intersect4.length%2 == 1) && 
+             (intersect4OffCenter.length%2 == 1))
           {
-            //console.log(currPoint);
-
             SolidCloudGeometry.vertices.push(currPoint);
             if(CurrGeometry == "Sphere" && currPoint.distanceTo(center) > 1)
             {
@@ -140,6 +131,10 @@ function MeshToPC(MeshGeometry, MeshObject)
                 console.log(currPoint.distanceTo(center));
             }
           }
+          // else if(!noLoops && )
+          // {
+
+          // }
           // else
           // {
           //   if(intersect2.length == 1 && intersect1.length == 0)
@@ -177,6 +172,12 @@ function MeshToPC(MeshGeometry, MeshObject)
     console.log(sum2Count);
     console.log("wrong count = ");
     console.log(wrongPoint);
+
+    console.log(intersect1);
+    console.log(intersect2);
+    console.log(intersect3);
+    console.log(intersect4);
+    console.log(intersect4OffCenter);
 
     InitScene(PCRenderer, PCScene, PCCamera, PCControls, PCAxisHelper);
     RenderPointCloud();

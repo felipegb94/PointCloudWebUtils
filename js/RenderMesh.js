@@ -4,29 +4,36 @@ function RenderMesh()
     $MeshContainer.append(MeshRenderer.domElement);
 
     /* Sphere */
-    // CurrGeometry = "Sphere";
-    // MeshGeometry = new THREE.SphereGeometry(1);
+    //CurrGeometry = "Cube";
+    //MeshGeometry = new THREE.BoxGeometry(1,2,1);
+    /* Sphere */
+    //CurrGeometry = "Sphere";
+    //MeshGeometry = new THREE.SphereGeometry(1);
     /* Cylinder radiusTop, radiusBottom, radiusHeight, radiusSegments, heightSegments*/
     // CurrGeometry = "Cylinder";
     // MeshGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
     /* Cone */
-    CurrGeometry = "Cone";
-    MeshGeometry = new THREE.CylinderGeometry(0,0.3,1,32);
+    //CurrGeometry = "Cone";
+    //MeshGeometry = new THREE.CylinderGeometry(0,0.3,1,32);
     /* Semi Torus radius, tube, radialSegments, tubularSegments, arc */
     //CurrGeometry = "SemiTorus";
     //MeshGeometry = new THREE.TorusGeometry(1.5,0.3,16,100, Math.PI+(0.5*Math.PI));
     /* Full Torus */
     //CurrGeometry = "Torus";
-    //MeshGeometry = new THREE.TorusGeometry(1.5,0.3,16,100);
+    //MeshGeometry = new THREE.TorusGeometry(1,0.2,16,100);
     /* Torus knot */
-    //CurrGeometry = "TorusKnot";
-    //MeshGeometry = new THREE.TorusKnotGeometry(1,0.2,100,16);
+    CurrGeometry = "TorusKnot";
+    MeshGeometry = new THREE.TorusKnotGeometry(1,0.2,100,16);
 
 
     MeshGeometry.computeBoundingBox();
     console.log(MeshGeometry);
+    var MeshMaterial = new THREE.MeshNormalMaterial();
+    console.log("MeshMaterial");
+    MeshMaterial.side = THREE.DoubleSide;
 
-    MeshObject = new THREE.Mesh(MeshGeometry, new THREE.MeshNormalMaterial());
+    console.log(MeshMaterial);
+    MeshObject = new THREE.Mesh(MeshGeometry, MeshMaterial);
     MeshObject.overdraw = true;
     console.log(MeshObject);
 
