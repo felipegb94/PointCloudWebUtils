@@ -17,3 +17,6 @@ js/threejs/dat.gui.js
 js/threejs/font.typeface.js
 js/threejs/stats.min.js
 js/threejs/three.js
+dragon2.obj
+meshes/dragon.obj
+OBJLoader.js
