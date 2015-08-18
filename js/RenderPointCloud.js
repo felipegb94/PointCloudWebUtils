@@ -113,17 +113,14 @@ function RenderPointCloud()
     InitScene(PCRenderer, PCScene, PCCamera, PCControls, PCAxisHelper);
     $PCContainer.append(PCRenderer.domElement);
 
-    /* Compute Bounding Boxes */  
-    PointCloudGeometry.computeBoundingSphere();
-    PointCloudBoundaryGeometry.computeBoundingSphere();
-    SolidCloudGeometry.computeBoundingSphere();
+    console.log(SolidCloudGeometry);
 
     /* Create the PointClouds. PointCloudBoundary can be empty */
     PointCloud = new THREE.PointCloud(PointCloudGeometry, PointCloudMaterial);
     PointCloudBoundary = new THREE.PointCloud(PointCloudBoundaryGeometry,PointCloudBoundaryMaterial);
     SolidCloud = new THREE.PointCloud(SolidCloudGeometry, SolidCloudMaterial);
+    console.log(SolidCloud);
     console.log("End of Generating Point Cloud Geometry...");
-    console.log()
     PCScene.add(PointCloudBoundary);
     PCScene.add(PointCloud);
     PCScene.add(SolidCloud);

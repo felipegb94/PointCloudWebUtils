@@ -94,6 +94,7 @@
     <script src = "js/threejs/OBJLoader.js"></script>
     <script src = "js/GlobalVariables.js"></script> 
     <script src = "js/Utils.js"></script> 
+    <script src = "js/CSVUtils.js"></script> 
     <script src = "js/ThreeUtils.js"></script> 
     <script src = "js/RenderPointCloud.js"></script> 
     <script src = "js/RenderMesh.js"></script> 
@@ -110,8 +111,9 @@
               var url = $("#csv-file-url")[0].value;
               handleFilePathURL(url); 
           });
-          RenderMesh("meshes/dragon.obj");
-          //MeshToPC(MeshGeometry, MeshObject);
+          RenderMesh("meshes/humvee.obj");
+
+          
       });
       $( document ).on( "mousemove", function( event ) {
           $( "#MouseCoordinates" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
