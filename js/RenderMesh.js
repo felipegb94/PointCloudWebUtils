@@ -13,10 +13,10 @@ function RenderThreeMesh(MeshName)
         break;
         /* Cylinder radiusTop, radiusBottom, radiusHeight, radiusSegments, heightSegments*/
         case "Cylinder":
-            MeshGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
+            MeshGeometry = new THREE.CylinderGeometry(1.05,1.05,4,128);
         break;
         case "Cone":
-            MeshGeometry = new THREE.CylinderGeometry(0,0.3,1,32);
+            MeshGeometry = new THREE.CylinderGeometry(0,1.05,2,128);
         break;
         case "SemiTorus":
             MeshGeometry = new THREE.TorusGeometry(1.5,0.3,16,100, Math.PI+(0.5*Math.PI));

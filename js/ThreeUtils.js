@@ -67,7 +67,7 @@ function MeshToPC(MeshGeometry, MeshObject)
     var dirYMin = 0;
     var dirZMin = 0;
 
-    for(var i = min.x ; i < max.x  ; i = i + dr)
+    for(var i = min.x ; i <= max.x  ; i = i + dr)
     {
       currPoint.setX(i);
       dirX = center.x - i;
@@ -76,7 +76,7 @@ function MeshToPC(MeshGeometry, MeshObject)
       directionOffCenter.setX(dirX + 0.0000001);
       directionMin.setX(dirXMin);
 
-      for(var j = min.y ; j < max.y ; j = j + dr)
+      for(var j = min.y ; j <= max.y ; j = j + dr)
       {
         currPoint.setY(j);
         dirY = center.y - j;
@@ -85,7 +85,7 @@ function MeshToPC(MeshGeometry, MeshObject)
         directionOffCenter.setY(dirY);
         directionMin.setY(dirYMin);
 
-        for(var k = min.z ; k < max.z ; k = k + dr)
+        for(var k = min.z ; k <= max.z ; k = k + dr)
         {
 
           currPoint.setZ(k);

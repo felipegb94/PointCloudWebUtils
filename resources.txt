@@ -1,0 +1,7 @@
+http://erich.realtimerendering.com/ptinpoly/
+
+http://stackoverflow.com/questions/6554313/algorithm-for-determining-whether-a-point-is-inside-a-3d-mesh
+
+https://en.wikipedia.org/wiki/Point_in_polygon
+
+http://geomalgorithms.com/a03-_inclusion.html
