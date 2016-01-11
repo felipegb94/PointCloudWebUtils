@@ -39,18 +39,40 @@ function RenderThreeMesh(MeshName)
     MeshObject.overdraw = true;
     console.log(MeshObject);
 
-    var box = new THREE.BoxHelper( MeshObject );
-
+    MeshBox = new THREE.BoxHelper( MeshObject );
+    var numChildren = MeshScene.children.length;
+    MeshObject.name = numChildren;
     MeshScene.add(MeshObject);
-    MeshScene.add(box);
+    MeshBox.name = numChildren+1;
+    MeshScene.add(MeshBox);
 
     var max = MeshGeometry.boundingBox.max;
     var min = MeshGeometry.boundingBox.min;
     var MaxBoundingBoxHTML= "<p><strong>Max BoundingBox Coordinates:</strong>  x = " +  max.x + ",   y = " + max.y + ",   z = " + max.z + "</p>";
     var MinBoundingBoxHTML= "<p><strong>Min BoundingBox Coordinates:</strong>  x = " +  min.x + ",   y = " + min.y + ",   z = " + min.z + "</p>";
     $("#DebugInfo").html(MaxBoundingBoxHTML + MinBoundingBoxHTML);
+    $("#MeshToPC").toggleClass("disabled",false);
 
     MeshAnimate();
+
+}
+
+function ClearMesh()
+{
+    console.log(MeshScene);
+
+    for(var i = 0;i < MeshScene.children.length;i++)
+    {
+        currChild = MeshScene.children[i];
+
+        if((currChild instanceof THREE.Mesh) || (currChild instanceof THREE.BoxHelper))
+        {
+            MeshScene.remove(currChild);
+        }
+    }
+
+    MeshAnimate();
+
 }
 
 function RenderMesh(filename)

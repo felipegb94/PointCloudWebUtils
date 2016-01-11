@@ -1,6 +1,7 @@
 
 var data;
 var input;
+var enableRenderPC = false;
 function handleFileSelect(evt) 
 {
     var file = evt.target.files[0];
@@ -13,7 +14,8 @@ function handleFileSelect(evt)
                                data = results.data;
                                cancelAnimationFrame(PCAnimationFrame);
                                $("#container").empty();
-                               RenderSPHPointCloud();
+                               $("#RenderPC").toggleClass("disabled",enableRenderPC);
+                               enableRenderPC = true;
                            }
         });
     }

@@ -12,6 +12,7 @@ var FAR = 100;
 /**
  * Initialize Mesh Scene Variables
  */
+var MeshBox;
 var CurrGeometry = "";
 var MeshGeometry, MeshObject;
 var MeshAnimationFrame, MeshControls, MeshRenderer, MeshScene, MeshCamera, MeshAxisHelper;

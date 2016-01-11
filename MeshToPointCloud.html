@@ -30,33 +30,8 @@
   <body role="document">
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Point Cloud Utils</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="PointCloudRender.html">RenderPC</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">GeneratePC<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="MeshFileToPointCloud.html">Mesh file to PC</a></li>
-                <li><a href="MeshToPointCloud.html">Threejs mesh to PC</a></li>
-                <li><a href="#">Salome option</a></li>
-                <li><a href="#">Charlie's approach</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+    <div id="navbar-container"></div>
+
 
     <div class="container" role="main">
 
@@ -69,12 +44,29 @@
       <div class="row">
           <table class="table table-bordered">
               <tr>
-                  <td><div id = "DebugInfo"></div></td>
+                  <td>
+                    <button id="RenderSphere" type = "button" class="btn btn-default">Render Sphere</button>
+                    <button id="RenderCube" type = "button" class="btn btn-default">Render Cube</button>
+                    <button id="RenderCylinder" type = "button" class="btn btn-default">Render Cylinder</button>
+                    <button id="RenderTorus" type = "button" class="btn btn-default">Render Torus</button>
+                    </br></br>
+                    <div class="col-xs-2">
+                      <label for="deltaR">Point Spacing (h)</label>
+                      <input id="deltaR" class="form-control" type="number" name="quantity" min="0.01" max="0.2" step="0.01" placeholder="0.01 - 0.2" value="0.1" />
+                    </div>
+                    </br>
+                    <button id="MeshToPC" type = "button" class="btn btn-default disabled">Mesh To Point Cloud</button>
+                    <button id="ClearMesh" type = "button" class="btn btn-default">Clear Mesh</button>
+
+                  </td>
                   <td id = "MeshContainer" ></td>
               </tr>
               <tr>
-                  <td><p id = "MouseCoordinates"></p></td>
-                  <td id = "PointCloudContainer" ></td>
+                  <td>
+                    <div id = "DebugInfo"></div>
+                  </td>
+                  <td id = "PointCloudContainer" >
+                  </td>
               </tr>
           </table>
       </div> <!-- Table row end -->
@@ -85,6 +77,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src = "http://code.jquery.com/jquery-1.11.3.min.js"> </script> 
     <script src = "js/include/bootstrap.js"></script>
+    <script>
+        $('head').load('template/head.html')
+        $('#navbar-container').load('template/navbar.html')
+    </script>
+
     <script src = "js/include/papaparse.min.js"></script> 
     <script src = "js/threejs/three.js"></script> 
     <script src = "js/threejs/TrackballControls.js"></script>
@@ -99,23 +96,27 @@
     <script src = "js/RenderPointCloud.js"></script> 
     <script src = "js/RenderMesh.js"></script> 
 
-
     <script>
       $(document).ready(function() 
       {
-          /* Handle local files */
-          $("#csv-file").change(handleFileSelect);
-          /* Handle input url.. */
-          $("#url-button").click(function()
-          {
-              var url = $("#csv-file-url")[0].value;
-              handleFilePathURL(url); 
+          $("#RenderSphere").click(function(){
+            RenderThreeMesh("Sphere");
           });
-          RenderThreeMesh("Cylinder");
-          MeshToPC(MeshGeometry, MeshObject);
-      });
-      $( document ).on( "mousemove", function( event ) {
-          $( "#MouseCoordinates" ).text( "pageX: " + event.pageX + ", pageY: " + event.pageY );
+          $("#RenderCube").click(function(){
+            RenderThreeMesh("Cube");
+          });
+          $("#RenderCylinder").click(function(){
+            RenderThreeMesh("Cylinder");
+          });
+          $("#RenderTorus").click(function(){
+            RenderThreeMesh("Torus");
+          });
+          $("#MeshToPC").click(function(){
+            MeshToPC(MeshGeometry, MeshObject);
+          });   
+          $("#ClearMesh").click(function(){
+            ClearMesh();
+          });         
       });
     </script>
   </body>

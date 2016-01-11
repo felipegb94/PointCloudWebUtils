@@ -56,7 +56,9 @@ function MeshToPC(MeshGeometry, MeshObject)
     var raycasterOffCenter = new THREE.Raycaster();
     var raycasterMin = new THREE.Raycaster();
 
-    var dr = 0.1;
+    var dr = parseFloat($("#deltaR").val());
+    console.log(dr);
+    alert(typeof(dr));
     var wrongPoint = 0;
     var pointCounter = 0;
 
@@ -73,7 +75,6 @@ function MeshToPC(MeshGeometry, MeshObject)
       dirX = center.x - i;
       dirXMin = min.x - i;
       direction.setX(dirX);
-      directionOffCenter.setX(dirX + 0.0000001);
       directionMin.setX(dirXMin);
 
       for(var j = min.y ; j <= max.y ; j = j + dr)
@@ -82,7 +83,6 @@ function MeshToPC(MeshGeometry, MeshObject)
         dirY = center.y - j;
         dirYMin = min.y - j;
         direction.setY(dirY);
-        directionOffCenter.setY(dirY);
         directionMin.setY(dirYMin);
 
         for(var k = min.z ; k <= max.z ; k = k + dr)
@@ -92,18 +92,15 @@ function MeshToPC(MeshGeometry, MeshObject)
           dirZ = center.z - k;
           dirZMin = min.z - k;
           direction.setZ(dirZ);
-          directionOffCenter.setZ(dirZ);
           directionMin.setZ(dirZMin);
 
           // IMPORTANT!! We have to normalize the direction in order for raycaster to work! 
           direction.normalize();
-          directionOffCenter.normalize();
           directionMin.normalize();
 
           // Ray from point to center
           raycaster.set(currPoint, direction);
           // Ray from point to off center
-          raycasterOffCenter.set(currPoint, directionOffCenter);
           raycasterMin.set(currPoint, directionMin);
 
           // Intersect from point to center
@@ -112,9 +109,8 @@ function MeshToPC(MeshGeometry, MeshObject)
           intersectOffCenter = raycasterOffCenter.intersectObject(MeshObject, true);
           intersectMin = raycasterMin.intersectObject(MeshObject, true);
 
-          if((intersect.length%2 == 1) && 
-             (intersectOffCenter.length%2 == 1) && 
-             (intersectMin.length%2 == 1) )
+          if(   (intersect.length%2 == 1) 
+             && (intersectMin.length%2 == 1) )
           {
             var pointToAdd = new THREE.Vector3(currPoint.x,currPoint.y,currPoint.z);
             SolidCloudGeometry.vertices.push(pointToAdd);
@@ -128,8 +124,8 @@ function MeshToPC(MeshGeometry, MeshObject)
     console.log("Total Number of Points: ");
     console.log(pointCounter);
 
-    var csv = VerticesToCSV(SolidCloudGeometry.vertices);
-    DownloadCSV(csv);
+    // var csv = VerticesToCSV(SolidCloudGeometry.vertices);
+    // DownloadCSV(csv);
     InitScene(PCRenderer, PCScene, PCCamera, PCControls, PCAxisHelper);
     RenderPointCloud();
 
