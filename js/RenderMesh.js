@@ -140,8 +140,7 @@ function RenderMesh(filename)
         var MinBoundingBoxHTML= "<p><strong>Min BoundingBox Coordinates:</strong>  x = " +  min.x + ",   y = " + min.y + ",   z = " + min.z + "</p>";
         $("#DebugInfo").html(MaxBoundingBoxHTML + MinBoundingBoxHTML);
         MeshAnimate();
-
-        MeshToPC(MeshGeometry, MeshObject);
+        $("#MeshToPC").toggleClass("disabled",false);
 
     }, onProgress, onError );
 

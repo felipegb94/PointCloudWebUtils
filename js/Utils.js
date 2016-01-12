@@ -21,6 +21,12 @@ function handleFileSelect(evt)
     }
 }
 
+function handleMeshSelect(evt)
+{
+    var file = evt.target.files[0];
+    console.log(file);
+}
+
 /* Check if url is valid or not */
 function ValidURL(str) 
 {

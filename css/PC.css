@@ -1,3 +1,27 @@
+.btn {
+    margin: 5px;
+}
+.well {
+    padding: 7px;
+}
+
+/*#MeshOptions  {
+    border: solid;
+    border-width: 1px;
+}
+#MeshOptions  {
+    border: solid;
+    border-width: 1px;
+}
+#MeshContainer  {
+    border: solid;
+    border-width: 1px;
+}
+#PointCloudRow  {
+    border: solid;
+    border-width: 1px;
+}*/
+
 
 #PointCloudContainer {
     background-color: #000;
