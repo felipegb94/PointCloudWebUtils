@@ -9,7 +9,8 @@ var ASPECT = WIDTH / HEIGHT;
 var NEAR = 0.001;
 var FAR = 100;
 
-var outputCSV;
+var outputBlob;
+var totalNumPoints;
 /**
  * Initialize Mesh Scene Variables
  */

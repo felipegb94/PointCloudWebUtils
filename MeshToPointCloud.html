@@ -114,6 +114,7 @@
     </script>
 
     <script src = "js/include/papaparse.min.js"></script> 
+    <script src = "js/include/FileSaver.js"></script> 
     <script src = "js/threejs/three.js"></script> 
     <script src = "js/threejs/TrackballControls.js"></script>
     <script src = "js/threejs/BoxHelper.js"></script>
@@ -151,6 +152,11 @@
           });  
           $("#SubmitURL").click(function(){
             RenderMesh($("#MeshFileURL").val());
+          });  
+          $("#SaveCSV").click(function(){
+            console.log("Saving point cloud csv");
+            console.log(outputBlob);
+            saveAs(outputBlob, "OutputPointCloud.csv", false);
           });  
       });
     </script>

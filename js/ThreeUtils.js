@@ -67,7 +67,11 @@ function MeshToPC(MeshGeometry, MeshObject)
     var dirXMin = 0;
     var dirYMin = 0;
     var dirZMin = 0;
-
+    totalNumPoints = (((max.x - min.x)/dr) + 1) * 
+                     (((max.y - min.y)/dr) + 1) * 
+                     (((max.z - min.z)/dr) + 1);
+    alert(totalNumPoints);
+    counter = 0;
     for(var i = min.x ; i <= max.x  ; i = i + dr)
     {
       currPoint.setX(i);
@@ -114,16 +118,18 @@ function MeshToPC(MeshGeometry, MeshObject)
             var pointToAdd = new THREE.Vector3(currPoint.x,currPoint.y,currPoint.z);
             SolidCloudGeometry.vertices.push(pointToAdd);
             pointCounter++;
-            console.log(currPoint);
+            //console.log(currPoint);
           }
-
+          counter = counter + 1;
+          console.log(counter);
         }    
       }
     }
     console.log("Total Number of Points: ");
     console.log(pointCounter);
 
-    outputCSV = VerticesToCSV(SolidCloudGeometry.vertices);
+    var outputCSV = VerticesToCSV(SolidCloudGeometry.vertices);
+    outputBlob = new Blob([outputCSV], {type: "text/plain;charset=utf-8"});
 
     // DownloadCSV(csv);
     InitScene(PCRenderer, PCScene, PCCamera, PCControls, PCAxisHelper);
