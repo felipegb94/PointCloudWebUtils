@@ -58,7 +58,6 @@ function MeshToPC(MeshGeometry, MeshObject)
 
     var dr = parseFloat($("#deltaR").val());
     console.log(dr);
-    alert(typeof(dr));
     var wrongPoint = 0;
     var pointCounter = 0;
 
@@ -124,10 +123,13 @@ function MeshToPC(MeshGeometry, MeshObject)
     console.log("Total Number of Points: ");
     console.log(pointCounter);
 
-    // var csv = VerticesToCSV(SolidCloudGeometry.vertices);
+    outputCSV = VerticesToCSV(SolidCloudGeometry.vertices);
+
     // DownloadCSV(csv);
     InitScene(PCRenderer, PCScene, PCCamera, PCControls, PCAxisHelper);
     RenderPointCloud();
+
+    $("#SaveCSV").toggleClass("disabled",false);
 
 }
 

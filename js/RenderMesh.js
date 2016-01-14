@@ -152,6 +152,7 @@ function MeshAnimate()
     MeshAnimationFrame = requestAnimationFrame(MeshAnimate);
     MeshControls.update();
     MeshRenderer.render(MeshScene, MeshCamera);
+    Octree.update();
 }
 
 

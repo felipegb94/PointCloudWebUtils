@@ -71,7 +71,7 @@
             <div class="row">
               <div class="col-sm-4">
                 <label for="deltaR">Point Spacing (h)</label>
-                <input id="deltaR" class="form-control" type="number" name="quantity" min="0.01" max="0.2" step="0.01" placeholder="0.01 - 0.2" value="0.1" />
+                <input id="deltaR" class="form-control" type="number" name="quantity" min="0.01" max="0.2" step="0.01" placeholder="0.01 - 0.2" value="0.2" />
               </div>
 
             </div>
@@ -85,6 +85,12 @@
             </div>
             <div class="row" id="DebugInfo">
             </div>
+            <div class="row" id="SaveAs">
+              <div class="col-sm-4">
+                <button id="SaveCSV" type = "button" class="btn btn-default disabled">Save Point Cloud</button>
+              </div>           
+            </div>
+
           </div>
           <div class="col-sm-6" id="MeshContainer">
           </div>
@@ -114,6 +120,7 @@
     <script src = "js/threejs/BoundingBoxHelper.js"></script>
     <script src = "js/threejs/Detector.js"></script>
     <script src = "js/threejs/OBJLoader.js"></script>
+    <script src = "js/threejs/threeoctree.js"></script>
     <script src = "js/GlobalVariables.js"></script> 
     <script src = "js/Utils.js"></script> 
     <script src = "js/CSVUtils.js"></script> 

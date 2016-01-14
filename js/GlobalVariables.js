@@ -9,6 +9,7 @@ var ASPECT = WIDTH / HEIGHT;
 var NEAR = 0.001;
 var FAR = 100;
 
+var outputCSV;
 /**
  * Initialize Mesh Scene Variables
  */
@@ -26,7 +27,7 @@ MeshCamera = new THREE.PerspectiveCamera(VIEW_ANGLE,
 MeshAxisHelper = new THREE.AxisHelper(100);
 var $MeshContainer = $(MeshContainerID);
 MeshControls = new THREE.TrackballControls(MeshCamera, $MeshContainer[0]);
-
+var Octree = new THREE.Octree();
 /**
  * Initialize Point Cloud Scene Variables
  */
